@@ -27,6 +27,7 @@ namespace mull {
 
 class Config {
   std::vector<std::string> bitcodePaths;
+  std::vector<std::string> tests;
   std::vector<std::string> mutationOperators;
   bool fork;
   bool dryRun;
@@ -41,6 +42,7 @@ public:
   // TODO: Refactoring into constants.
   Config() :
     bitcodePaths(),
+    tests(),
     mutationOperators(
       // Yaml::Traits stops reading mutation_operators from config.yaml
       // if these 3 default operators are set here (BUG?).
@@ -61,6 +63,7 @@ public:
   }
 
   Config(const std::vector<std::string> &paths,
+         const std::vector<std::string> &tests,
          bool fork,
          bool dryrun,
          bool cache,
@@ -69,6 +72,7 @@ public:
          const std::string &cacheDir,
          std::vector<std::string> mutationOperators) :
     bitcodePaths(paths),
+    tests(tests),
     fork(fork),
     dryRun(dryrun),
     useCache(cache),
@@ -81,6 +85,10 @@ public:
 
   const std::vector<std::string> &getBitcodePaths() const {
       return bitcodePaths;
+  }
+  
+  const std::vector<std::string> &getTests() const {
+    return tests;
   }
 
   bool getFork() const {
